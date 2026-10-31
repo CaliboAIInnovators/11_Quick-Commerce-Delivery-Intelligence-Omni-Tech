@@ -1,53 +1,166 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-# Quick-Commerce Delivery Intelligence
+Quick-Commerce Delivery Intelligence ⚡
+AI-Powered ETA Prediction, Late-Delivery Risk Detection & Delivery Optimization
+Overview
+Quick-Commerce Delivery Intelligence is an end-to-end data analytics and machine learning project designed to help quick-commerce operations understand delivery performance, estimate delivery times, identify potentially late orders, and support better delivery planning.
 
-This package is an update-ready project folder, organized using the supplied UPI Fraud Detection submission as a structural reference.
+The project combines data cleaning, exploratory data analysis (EDA), feature engineering, supervised machine learning, unsupervised clustering, model evaluation, and an interactive Streamlit dashboard.
+Problem Statement
+Quick-commerce platforms operate with tight delivery expectations. Delivery times can be affected by distance, traffic, weather, order timing, and delivery-partner characteristics. Delays can reduce customer satisfaction and create operational inefficiencies.
 
-## Included
-- `notebooks/`: project analysis notebook.
-- `scripts/`: recommendation-generation script.
-- `report/`: PDF report plus editable Markdown and Word versions.
-- `reports/`: reserved for generated model comparison and cleaning summaries.
-- `powerbi/`: reserved for Power BI CSV exports.
-- `ml/models/`: reserved for trained model artifacts and metadata.
-- `dataset/raw/` and `dataset/processed/`: place your source and cleaned datasets here.
-- `app/`: reserved for the Streamlit application.
+This project explores how historical delivery data can be used to:
+- Predict estimated delivery time.
+- Identify orders at risk of exceeding a delivery-time threshold.
+- Discover geographic demand clusters that can inform dark-store planning.
+- Segment delivery partners based on operational performance.
+- Present insights through an interactive dashboard.
+Key Features
+1. Exploratory Data Analysis
+- Dataset profiling and data-quality checks.
+- Analysis of delivery-time distributions.
+- Study of delivery patterns across traffic, weather, distance, and other variables.
+- Correlation analysis and visual reporting.
+2. ETA Prediction — Regression
+A regression workflow estimates delivery duration in minutes using relevant order, location, environmental, and delivery-partner features.
 
-## Update the report
-1. Open `report/business_report_editable.docx` or `report/business_report.md`.
-2. Replace provisional numbers with the latest outputs from your notebook and Power BI CSV exports.
-3. Update the model metrics from `reports/model_comparison_regression.csv` and `reports/model_comparison_classification.csv`.
-4. Validate zone and rider findings against `powerbi/zone_clusters.csv` and `powerbi/rider_segments.csv`.
-5. Regenerate the PDF after editing.
+The model comparison report records the selected XGBoost Regressor results:
+- MAE: 3.317 minutes
+- RMSE: 4.150 minutes
+- R²: 0.8013
+3. Late-Delivery Risk — Classification
+A classification workflow estimates whether an order may exceed the project's configurable 30-minute demonstration threshold.
 
-## Important
-The archive contains only project files that were available in the current workspace. Dataset files, Power BI exports, trained model binaries and the Streamlit app were not included because they were not available to package. Add your latest generated files to the matching folders.
-=======
-# 11_Quick-Commerce-Delivery-Intelligence-Omni-Tech
->>>>>>> bac1e7a6e8c1c01c489d9d681d8445f6e0b88ecb
-=======
-# Quick-Commerce Delivery Intelligence
+The model comparison report records the selected XGBoost Classifier results:
+- F1-score: 0.8709
+- Recall: 88.32%
+- ROC-AUC: 0.9814
+- PR-AUC: 0.9614
+The 30-minute threshold is an analytical benchmark used in this project, not a claim about a universal or official delivery SLA.
+4. Geographic Demand-Zone Clustering
+K-Means clustering is used to group valid delivery coordinates into geographic clusters. These clusters can support exploratory demand-zone and dark-store planning analysis.
+5. Delivery-Partner Segmentation
+Clustering is used to explore delivery-partner performance groups and identify patterns that may support operational coaching and allocation decisions.
+6. Interactive Dashboard
+The Streamlit application brings together:
+- Executive overview and KPIs
+- Data exploration
+- ETA prediction
+- Late-delivery risk analysis
+- Geographic demand zones
+- Delivery-partner segmentation
+- Model performance and explainability
+- Business recommendations
+Technology Stack
+Area	Tools
+Language	Python
+Data processing	Pandas, NumPy
+Visualization	Matplotlib, Seaborn, Plotly (where used by the app)
+Machine learning	Scikit-learn, XGBoost
+Explainability	SHAP
+Dashboard	Streamlit
+Geographic visualization	Folium
+Model persistence	Joblib
+Development	Jupyter Notebook, Git, GitHub
 
-This package is an update-ready project folder, organized using the supplied UPI Fraud Detection submission as a structural reference.
 
-## Included
-- `notebooks/`: project analysis notebook.
-- `scripts/`: recommendation-generation script.
-- `report/`: PDF report plus editable Markdown and Word versions.
-- `reports/`: reserved for generated model comparison and cleaning summaries.
-- `powerbi/`: reserved for Power BI CSV exports.
-- `ml/models/`: reserved for trained model artifacts and metadata.
-- `dataset/raw/` and `dataset/processed/`: place your source and cleaned datasets here.
-- `app/`: reserved for the Streamlit application.
+Project Structure
+Quick-Commerce-Delivery-Intelligence/
+├── app/
+│   ├── streamlit_app.py
+│   ├── data_service.py
+│   ├── styles.py
+│   └── views/
+├── data/
+│   ├── train.xlsx
+│   ├── cleaned_delivery_data.csv
+│   └── featured_delivery_data.csv
+├── models/                 # Saved model artifacts (if generated/provided)
+├── notebooks/
+│   └── exploratory_analysis.ipynb
+├── reports/
+│   ├── figures/
+│   ├── model_comparison.csv
+│   ├── eda_findings.md
+│   ├── regression_report.md
+│   ├── classification_report.md
+│   ├── clustering_report.md
+│   └── model_selection.md
+├── scripts/
+│   └── train_and_evaluate.py
+├── src/
+│   ├── data_loader.py
+│   ├── data_cleaning.py
+│   ├── feature_engineering.py
+│   ├── eda.py
+│   ├── regression.py
+│   ├── classification.py
+│   ├── clustering.py
+│   ├── model_evaluation.py
+│   └── prediction.py
+├── tests/
+├── config.py
+├── main.py
+├── requirements.txt
+└── README.md
+The exact files available may vary by project version. Large generated artifacts, local virtual environments, and temporary outputs should not be committed to the repository.
+Getting Started
+Prerequisites
+- Python 3.10 or later
+- Git
+- pip
+1. Clone the repository
+git clone https://github.com/PradeepthiPathuri/11_Quick-Commerce-Delivery-Intelligence-Omni-Tech.git
+cd 11_Quick-Commerce-Delivery-Intelligence-Omni-Tech
+2. Create and activate a virtual environment
+Windows:
+python -m venv venv
+venv\Scripts\activate
+macOS / Linux:
+python3 -m venv venv
+source venv/bin/activate
+3. Install dependencies
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+4. Prepare the dataset
+Place the source dataset at the path expected by the project configuration:
+data/train.xlsx
+The project also uses generated cleaned and feature-engineered files under data/. Check config.py if your dataset is stored under a different filename or location.
+5. Run the data workflows
+Run commands from the repository root:
+python main.py --inspect
+python main.py --clean
+python main.py --features
+python main.py --eda
+6. Launch the dashboard
+streamlit run app/streamlit_app.py
+If your project version exposes the dashboard through the CLI entry point, you can also try:
+python main.py --app
+Model Training and Evaluation
+The repository includes model-training and evaluation workflows under scripts/ and model implementation modules under src/.
 
-## Update the report
-1. Open `report/business_report_editable.docx` or `report/business_report.md`.
-2. Replace provisional numbers with the latest outputs from your notebook and Power BI CSV exports.
-3. Update the model metrics from `reports/model_comparison_regression.csv` and `reports/model_comparison_classification.csv`.
-4. Validate zone and rider findings against `powerbi/zone_clusters.csv` and `powerbi/rider_segments.csv`.
-5. Regenerate the PDF after editing.
-
-## Important
-The archive contains only project files that were available in the current workspace. Dataset files, Power BI exports, trained model binaries and the Streamlit app were not included because they were not available to package. Add your latest generated files to the matching folders.
->>>>>>> 2915fb6 (Add Quick Commerce Delivery Intelligence project)
+Depending on the project version and available dataset/model artifacts, run:
+python scripts/train_and_evaluate.py
+Review the generated evaluation outputs in reports/. Model metrics can vary when the dataset, split strategy, features, random seed, or training configuration changes.
+Important Notes on Data Leakage
+For a realistic prediction scenario, only use information available at the intended prediction time. The project configuration identifies post-dispatch or outcome-related fields that must be excluded from early prediction features, such as:
+- Actual delivery duration and late-delivery target.
+- Order-picked timestamps and preparation-time values.
+- Other fields that are only known after dispatch or during delivery.
+Always review config.py and the training pipeline before changing the feature set.
+Reports and Outputs
+The reports/ directory contains analytical findings, model comparisons, evaluation reports, and generated visualizations. These files document the current experiment results and provide context for the dashboard.
+Limitations
+- Results depend on the quality, coverage, and representativeness of the available historical dataset.
+- Model metrics are offline evaluation results and do not guarantee production performance.
+- Geographic clusters are analytical groupings; they are not automatically optimized store locations.
+- The 30-minute late-delivery threshold is configurable and should be adapted to the business context.
+- A production deployment would require live traffic/weather feeds, monitoring, retraining, security controls, and integration with order-dispatch systems.
+Future Enhancements
+- Integrate live traffic and weather information.
+- Connect predictions to a real-time order-management or dispatch system.
+- Add model monitoring, drift detection, and scheduled retraining.
+- Improve geographic optimization using demand, capacity, and service constraints.
+- Deploy the dashboard and inference service to a cloud platform.
+Contributors
+Developed as a collaborative project. Add the names and contributions of all team members here.
+License
+This project is licensed under the MIT License. See the LICENSE file for details.
